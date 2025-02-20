@@ -138,6 +138,112 @@
           opacity: 0;
         }
       }
+      /* Styling for the final message screen */
+      #final-message-screen {
+        text-align: center;
+        background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0px 5px 20px rgba(255, 20, 147, 0.5);
+        animation: fadeIn 1.5s ease-in-out;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Styling for the heading */
+      #final-message-screen h2 {
+        font-size: 30px;
+        font-weight: bold;
+        color: white;
+        text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8);
+        animation: glow 2s infinite alternate;
+      }
+
+      /* Styling for the paragraph */
+      #final-message-screen p {
+        font-size: 20px;
+        font-weight: 500;
+        color: white;
+        text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.6);
+        margin-top: 10px;
+      }
+
+      /* Heart animation */
+      @keyframes floatingHearts {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+
+      /* Glowing effect */
+      @keyframes glow {
+        0% {
+          text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        100% {
+          text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+        }
+      }
+
+      /* Fade-in effect */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* Floating hearts */
+      .heart {
+        position: absolute;
+        width: 40px;
+        animation: heartFloat 5s infinite ease-in-out;
+        opacity: 0.8;
+      }
+
+      @keyframes heartFloat {
+        0% {
+          transform: translateY(0px) scale(1);
+        }
+        50% {
+          transform: translateY(-20px) scale(1.1);
+        }
+        100% {
+          transform: translateY(0px) scale(1);
+        }
+      }
+
+      /* Positioning floating hearts */
+      .heart1 {
+        top: 20px;
+        left: 30px;
+        animation-duration: 4s;
+      }
+      .heart2 {
+        top: 50px;
+        right: 40px;
+        animation-duration: 5s;
+      }
+      .heart3 {
+        bottom: 30px;
+        left: 50px;
+        animation-duration: 6s;
+      }
+      .heart4 {
+        bottom: 40px;
+        right: 20px;
+        animation-duration: 7s;
+      }
     </style>
   </head>
   <body>
@@ -161,7 +267,7 @@
 
     <div class="container hidden animate" id="birthday-wish-screen">
       <h2 class="text-center">🎂 Happy Birthday, Meri Pyaari Bubu 💖✨</h2>
-      <img src="wish.png" alt="Birthday Cake" width="200px" />
+      <img src="wish.png" class="mb-3" alt="Birthday Cake" width="200px" />
       <p>
         Meri chhoti si piddi,You light up my world,Kaash main aaj apke saath
         hota or apko bta skta ke Ap meri zindagi ke sabse special insaan ho 💖
@@ -204,13 +310,19 @@
         Areey waah Guglu Muglu sb sahi answer diye, Smart ho gye ho mere sath rh
         ke 💖
       </h2>
-      <button id="final-step-btn">Abhi ek or chezz hai</button>
+      <button id="final-step-btn">Bubu suno</button>
     </div>
     <!-- New Final Message Screen (Initially Hidden) -->
     <div class="container hidden animate" id="final-message-screen">
-      <img src="cute.png" alt="Love" width="400px" />
-      <h2 style="color: red; font-size: 24px">I Love You Bubu ❤️</h2>
-      <p>Mera pyaara sa cute sa Gugu Muglu! Tum meri jaan ho! 💖💋</p>
+      <img src="cute.png" alt="Love" width="300px" />
+      <h2>I Love You Bubu ❤️</h2>
+      <p>Mera pyaara sa cute sa Gugu Muglu! 💋💖</p>
+
+      <!-- Floating Hearts -->
+      <img src="heart-801_256.gif" class="heart heart1" />
+      <img src="heart-801_256.gif" class="heart heart2" />
+      <img src="heart-801_256.gif" class="heart heart3" />
+      <img src="heart-801_256.gif" class="heart heart4" />
     </div>
 
     <script>
@@ -247,7 +359,6 @@
           });
 
         function showNoMessage() {
-          // List of random messages
           let messages = [
             "Bubu Ye Bakchodi Nahi Chalegi  😤",
             "Bubu ese Mat Kro 😢",
@@ -255,17 +366,14 @@
             "Agar dubara No Kaha, Toh Main Rota Rahunga 😭",
             "Heeee maa mata ji , bubu ne NO pe click kr diya💔 ",
             "Eh dobhi pagl Aurat 😤",
-            "Ro raha hoon ek kone mein 😭",
             "Yes pe to click krwa ke hi rhauga 😤💘",
             "No pe Click kyu kia Chup chap Yes pe click kro 😤",
             "Mujhe hurt ho rha hai big boss 😭",
           ];
 
-          // Select a random message
           let randomMessage =
             messages[Math.floor(Math.random() * messages.length)];
 
-          // Create a container for the message
           let noMessageContainer = document.createElement("div");
           noMessageContainer.id = "no-message-container";
           noMessageContainer.style.position = "absolute";
@@ -279,18 +387,15 @@
           noMessageContainer.style.boxShadow =
             "0px 5px 15px rgba(0, 0, 0, 0.2)";
 
-          // Create the crying emoji image
           let cryingEmoji = document.createElement("img");
-          cryingEmoji.src = "angry.png"; // Replace with the correct crying emoji image
+          cryingEmoji.src = "angry.png";
           cryingEmoji.style.width = "120px";
           cryingEmoji.style.marginBottom = "10px";
           cryingEmoji.style.animation = "fadeInOut 1s infinite alternate";
 
-          // Create the message text
           let messageText = document.createElement("h2");
           messageText.innerText = randomMessage;
 
-          // Create the retry button
           let retryButton = document.createElement("button");
           retryButton.innerText = "😤 Bubu Ydlma ";
           retryButton.style.padding = "12px 20px";
@@ -305,18 +410,14 @@
           retryButton.style.boxShadow = "3px 3px 10px rgba(0, 0, 0, 0.2)";
           retryButton.onclick = askAgain;
 
-          // Append elements to the container
           noMessageContainer.appendChild(cryingEmoji);
           noMessageContainer.appendChild(messageText);
           noMessageContainer.appendChild(retryButton);
 
-          // Append the container to the body
           document.body.appendChild(noMessageContainer);
         }
 
-        // Function to return to the previous question
         function askAgain() {
-          // Remove the "no-message" container
           let noMessageContainer = document.getElementById(
             "no-message-container"
           );
@@ -324,26 +425,26 @@
             noMessageContainer.remove();
           }
 
-          // Show the question screen again
           document
             .getElementById("questions-screen")
             .classList.remove("hidden");
         }
 
-        // Add animation to crying emoji
         const style = document.createElement("style");
         style.innerHTML = `
-      @keyframes fadeInOut {
-          0% { opacity: 1; transform: scale(1); }
-          100% { opacity: 0.5; transform: scale(1.2); }
-      }`;
+          @keyframes fadeInOut {
+              0% { opacity: 1; transform: scale(1); }
+              100% { opacity: 0.5; transform: scale(1.2); }
+          }`;
         document.head.appendChild(style);
 
         createBalloons();
       });
+
       function handleNoClick() {
         alert("Aww! No worries, I still love you the most! 💖");
       }
+
       function createBalloons() {
         const balloonContainer = document.getElementById("balloon-container");
         const colors = ["red", "blue", "yellow", "pink", "purple", "orange"];
@@ -354,12 +455,13 @@
           balloon.style.background =
             colors[Math.floor(Math.random() * colors.length)];
           balloon.style.left = Math.random() * 100 + "vw";
-          balloon.style.width = Math.random() * 40 + 40 + "px"; // Random width
-          balloon.style.height = Math.random() * 60 + 60 + "px"; // Random height
-          balloon.style.animationDuration = Math.random() * 3 + 4 + "s"; // Vary duration
+          balloon.style.width = Math.random() * 40 + 40 + "px";
+          balloon.style.height = Math.random() * 60 + 60 + "px";
+          balloon.style.animationDuration = Math.random() * 3 + 4 + "s";
           balloonContainer.appendChild(balloon);
         }
       }
+
       const questions = [
         "Do you know how much I love you? 💖",
         "Would you always be mine? 💕",
@@ -367,36 +469,39 @@
         "Would you always hold my hand? 🤝",
         "Cutu, kya aap mujhe har din ek jadoo ki jhappi doge? 🤗",
         "Would you be my forever? 💖",
-        "Jethalal ki Daya banna hai? 😢❤️",
+        "Jethalal ki Daya banna hai? ❤️",
         "Can love last forever? ❤️",
+        "Bubu, you know I’m your biggest supporter? ❤️",
+        "Dekho ye jagh pe Bubu Rhta hai 💖",
+        "Bubu, we’re not just best friends… we’re a perfect team, right? 💖😚               ",
+        "You are my Wonder Woman..bs kbhi kbhi esi tesi kr dete ho 😤  ",
       ];
 
       const stickers = [
-        "love1.png", // First question's sticker
-        "love2.png", // Second question's sticker
-        "love3.png", // Third question's sticker
-        "love4.png", // Fourth question's sticker
-        "love5.png",
-        "love3.png", // Third question's sticker
-        "love4.png", // Fourth question's sticker
-        "love5.png ",
+        "love8.png",
+        "love6.png",
+        "angry.png",
+        "love3.png",
+        "love4.png",
+        "love2.png",
+        "love1.png",
+        "love9.png",
+        "support.png",
+        "love10.png",
+        "love7.png",
+        "wonder.png",
       ];
 
       let currentQuestionIndex = 0;
 
       function nextQuestion() {
-        currentQuestionIndex++;
-
         if (currentQuestionIndex < questions.length) {
-          // Update the question text
           document.getElementById("question-text").innerText =
             questions[currentQuestionIndex];
-
-          // Update the sticker image
           document.getElementById("question-sticker").src =
             stickers[currentQuestionIndex];
+          currentQuestionIndex++;
         } else {
-          // Show final message screen
           document.getElementById("questions-screen").classList.add("hidden");
           document.getElementById("message-screen").classList.remove("hidden");
         }
@@ -419,14 +524,12 @@
         document.getElementById("surprise-screen").classList.add("hidden");
         document.getElementById("questions-screen").classList.remove("hidden");
       }
+
       document.addEventListener("DOMContentLoaded", function () {
         document
           .getElementById("final-step-btn")
           .addEventListener("click", function () {
-            // Hide the previous message screen
             document.getElementById("message-screen").classList.add("hidden");
-
-            // Show the final love message
             document
               .getElementById("final-message-screen")
               .classList.remove("hidden");
