@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday My Love!</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        text-align: center;
+        font-family: "Bruno Ace", sans-serif;
+        background-color: #ffebf0;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        margin-top: 10vh;
+        padding: 20px;
+      }
+      .hidden {
+        display: none;
+      }
+      .btn {
+        padding: 12px 20px;
+        font-size: 18px;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 300px;
+        transition: all 0.3s ease;
+        box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+      }
+      .btn:hover {
+        transform: scale(1.05);
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+      }
+      #yes-btn,
+      #next-btn {
+        background: linear-gradient(45deg, #ff1493, #ff69b4);
+        color: white;
+        margin-bottom: 20px;
+      }
+      #no-btn {
+        background: linear-gradient(45deg, #ccc, #bbb);
+      }
+      .animate {
+        animation: fadeIn 1.5s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .balloons {
+        position: absolute;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .balloon {
+        position: absolute;
+        width: 50px;
+        height: 70px;
+        border-radius: 50%;
+        opacity: 0.9;
+        animation: floatUp linear infinite;
+        transform-origin: bottom center;
+      }
+
+      .balloon::after {
+        /* Balloon string */
+        content: "";
+        position: absolute;
+        width: 2px;
+        height: 50px;
+        background: rgba(0, 0, 0, 0.2);
+        left: 50%;
+        top: 100%;
+      }
+      #final-step-btn {
+        margin-top: 15px;
+        padding: 12px 25px;
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(45deg, #ff1493, #ff69b4);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease-in-out;
+        animation: pulse 1.5s infinite;
+      }
+
+      /* Button click effect */
+      #final-step-btn:active {
+        transform: scale(0.95);
+      }
+
+      /* Smooth pulsing animation */
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
+        }
+        50% {
+          transform: scale(1.05);
+          box-shadow: 0 0 20px rgba(255, 20, 147, 0.8);
+        }
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 10px rgba(255, 20, 147, 0.5);
+        }
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(100vh) translateX(0) rotate(0deg);
+          opacity: 1;
+        }
+        50% {
+          transform: translateY(50vh) translateX(10px) rotate(3deg);
+        }
+        100% {
+          transform: translateY(-10vh) translateX(-10px) rotate(-3deg);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <audio id="bg-music" loop>
+      <source src="sending all my love.mp3" type="audio/mpeg" />
+    </audio>
+
+    <div class="balloons" id="balloon-container"></div>
+
+    <div class="container animate" id="welcome-screen">
+      <h1>Happy Birthday My Love 🎉</h1>
+      <p>
+        My dearest Bubu, though miles apart, my heart is always with you. You
+        are the most precious part of my life, and I want to make your day as
+        special as you are. So, I made this little surprise just for you. 💖
+      </p>
+      <img src="teddy.png" alt="Cute Sticker" width="150px" />
+      <h3>Ready for your first surprise, my Guglu Muglu?</h3>
+      <button class="btn" id="start-btn">Bubu, Click Karo 💖</button>
+    </div>
+
+    <div class="container hidden animate" id="birthday-wish-screen">
+      <h2 class="text-center">🎂 Happy Birthday, Meri Pyaari Bubu 💖✨</h2>
+      <img src="wish.png" alt="Birthday Cake" width="200px" />
+      <p>
+        Meri chhoti si piddi,You light up my world,Kaash main aaj apke saath
+        hota or apko bta skta ke Ap meri zindagi ke sabse special insaan ho 💖
+        and I can't wait for the day we're together.🎉
+      </p>
+      <img src="fly.gif" alt="Birthday Cake" width="300px" />
+      <button class="btn" id="next-btn">🎈 Chalo Piddi, Age Dekho Ab 🎈</button>
+    </div>
+
+    <div class="container hidden animate" id="surprise-screen">
+      <h2>Meri pyaari Soniye, ek surprise se kaam thodi chalega 💖</h2>
+      <p>
+        Cutu meri life ki sabse pyaari cheez hai, toh surprises bhi special hone
+        chahiye na? 🎁
+      </p>
+      <img src="heart-801_256.gif" alt="Hearts Animation" width="150px" />
+      <button class="btn" id="surprise-btn">💖 Bubu, Tap Karo</button>
+    </div>
+    <div class="container hidden animate" id="questions-screen">
+      <h2 id="question-text">Do you know how much I love you? 💖</h2>
+      <img
+        id="question-sticker"
+        class="mb-3"
+        src="love1.png"
+        alt="Sticker"
+        width="250px"
+      />
+      <button class="btn" id="yes-btn">Yes</button>
+      <button id="no-btn" class="btn">No</button>
+      <div id="no-message" class="hidden">
+        <h2>Aww! No worries, I still love you the most! 💖</h2>
+        <p>You can't escape my love! You're my forever! 🥰</p>
+        <img src="angry.png" width="150px" alt="Cute teddy hugging" />
+      </div>
+    </div>
+
+    <div class="container hidden animate" id="message-screen">
+      <img src="7 core.gif" alt="Happy" class="mb-3" width="200px" />
+      <h2>
+        Areey waah Guglu Muglu sb sahi answer diye, Smart ho gye ho mere sath rh
+        ke 💖
+      </h2>
+      <button id="final-step-btn">Abhi ek or chezz hai</button>
+    </div>
+    <!-- New Final Message Screen (Initially Hidden) -->
+    <div class="container hidden animate" id="final-message-screen">
+      <img src="cute.png" alt="Love" width="400px" />
+      <h2 style="color: red; font-size: 24px">I Love You Bubu ❤️</h2>
+      <p>Mera pyaara sa cute sa Gugu Muglu! Tum meri jaan ho! 💖💋</p>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("start-btn")
+          .addEventListener("click", startExperience);
+        document
+          .getElementById("next-btn")
+          .addEventListener("click", showSurprise);
+        document
+          .getElementById("surprise-btn")
+          .addEventListener("click", showQuestions);
+        document
+          .getElementById("yes-btn")
+          .addEventListener("click", function () {
+            document.getElementById("no-message").classList.add("hidden");
+
+            // Move to the next question
+            nextQuestion();
+          });
+
+        document
+          .getElementById("no-btn")
+          .addEventListener("click", function () {
+            // Stop balloon animation by removing them
+            document.getElementById("balloon-container").innerHTML = "";
+
+            // Hide the question screen but don't change the background
+            document.getElementById("questions-screen").classList.add("hidden");
+
+            // Show the "No" message screen
+            showNoMessage();
+          });
+
+        function showNoMessage() {
+          // List of random messages
+          let messages = [
+            "Bubu Ye Bakchodi Nahi Chalegi  😤",
+            "Bubu ese Mat Kro 😢",
+            "Pakka? Soch lo phir ",
+            "Agar dubara No Kaha, Toh Main Rota Rahunga 😭",
+            "Heeee maa mata ji , bubu ne NO pe click kr diya💔 ",
+            "Eh dobhi pagl Aurat 😤",
+            "Ro raha hoon ek kone mein 😭",
+            "Yes pe to click krwa ke hi rhauga 😤💘",
+            "No pe Click kyu kia Chup chap Yes pe click kro 😤",
+            "Mujhe hurt ho rha hai big boss 😭",
+          ];
+
+          // Select a random message
+          let randomMessage =
+            messages[Math.floor(Math.random() * messages.length)];
+
+          // Create a container for the message
+          let noMessageContainer = document.createElement("div");
+          noMessageContainer.id = "no-message-container";
+          noMessageContainer.style.position = "absolute";
+          noMessageContainer.style.top = "50%";
+          noMessageContainer.style.left = "50%";
+          noMessageContainer.style.transform = "translate(-50%, -50%)";
+          noMessageContainer.style.textAlign = "center";
+          noMessageContainer.style.background = "#fff";
+          noMessageContainer.style.padding = "20px";
+          noMessageContainer.style.borderRadius = "10px";
+          noMessageContainer.style.boxShadow =
+            "0px 5px 15px rgba(0, 0, 0, 0.2)";
+
+          // Create the crying emoji image
+          let cryingEmoji = document.createElement("img");
+          cryingEmoji.src = "angry.png"; // Replace with the correct crying emoji image
+          cryingEmoji.style.width = "120px";
+          cryingEmoji.style.marginBottom = "10px";
+          cryingEmoji.style.animation = "fadeInOut 1s infinite alternate";
+
+          // Create the message text
+          let messageText = document.createElement("h2");
+          messageText.innerText = randomMessage;
+
+          // Create the retry button
+          let retryButton = document.createElement("button");
+          retryButton.innerText = "😤 Bubu Ydlma ";
+          retryButton.style.padding = "12px 20px";
+          retryButton.style.fontSize = "16px";
+          retryButton.style.background =
+            "linear-gradient(45deg, #ff1493, #ff69b4)";
+          retryButton.style.color = "white";
+          retryButton.style.border = "none";
+          retryButton.style.cursor = "pointer";
+          retryButton.style.borderRadius = "8px";
+          retryButton.style.marginTop = "10px";
+          retryButton.style.boxShadow = "3px 3px 10px rgba(0, 0, 0, 0.2)";
+          retryButton.onclick = askAgain;
+
+          // Append elements to the container
+          noMessageContainer.appendChild(cryingEmoji);
+          noMessageContainer.appendChild(messageText);
+          noMessageContainer.appendChild(retryButton);
+
+          // Append the container to the body
+          document.body.appendChild(noMessageContainer);
+        }
+
+        // Function to return to the previous question
+        function askAgain() {
+          // Remove the "no-message" container
+          let noMessageContainer = document.getElementById(
+            "no-message-container"
+          );
+          if (noMessageContainer) {
+            noMessageContainer.remove();
+          }
+
+          // Show the question screen again
+          document
+            .getElementById("questions-screen")
+            .classList.remove("hidden");
+        }
+
+        // Add animation to crying emoji
+        const style = document.createElement("style");
+        style.innerHTML = `
+      @keyframes fadeInOut {
+          0% { opacity: 1; transform: scale(1); }
+          100% { opacity: 0.5; transform: scale(1.2); }
+      }`;
+        document.head.appendChild(style);
+
+        createBalloons();
+      });
+      function handleNoClick() {
+        alert("Aww! No worries, I still love you the most! 💖");
+      }
+      function createBalloons() {
+        const balloonContainer = document.getElementById("balloon-container");
+        const colors = ["red", "blue", "yellow", "pink", "purple", "orange"];
+
+        for (let i = 0; i < 15; i++) {
+          let balloon = document.createElement("div");
+          balloon.classList.add("balloon");
+          balloon.style.background =
+            colors[Math.floor(Math.random() * colors.length)];
+          balloon.style.left = Math.random() * 100 + "vw";
+          balloon.style.width = Math.random() * 40 + 40 + "px"; // Random width
+          balloon.style.height = Math.random() * 60 + 60 + "px"; // Random height
+          balloon.style.animationDuration = Math.random() * 3 + 4 + "s"; // Vary duration
+          balloonContainer.appendChild(balloon);
+        }
+      }
+      const questions = [
+        "Do you know how much I love you? 💖",
+        "Would you always be mine? 💕",
+        "Mujhe Gussa Dilana Km krna hai ya nhi? 💑",
+        "Would you always hold my hand? 🤝",
+        "Cutu, kya aap mujhe har din ek jadoo ki jhappi doge? 🤗",
+        "Would you be my forever? 💖",
+        "Jethalal ki Daya banna hai? 😢❤️",
+        "Can love last forever? ❤️",
+      ];
+
+      const stickers = [
+        "love1.png", // First question's sticker
+        "love2.png", // Second question's sticker
+        "love3.png", // Third question's sticker
+        "love4.png", // Fourth question's sticker
+        "love5.png",
+        "love3.png", // Third question's sticker
+        "love4.png", // Fourth question's sticker
+        "love5.png ",
+      ];
+
+      let currentQuestionIndex = 0;
+
+      function nextQuestion() {
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex < questions.length) {
+          // Update the question text
+          document.getElementById("question-text").innerText =
+            questions[currentQuestionIndex];
+
+          // Update the sticker image
+          document.getElementById("question-sticker").src =
+            stickers[currentQuestionIndex];
+        } else {
+          // Show final message screen
+          document.getElementById("questions-screen").classList.add("hidden");
+          document.getElementById("message-screen").classList.remove("hidden");
+        }
+      }
+
+      function startExperience() {
+        document.getElementById("welcome-screen").classList.add("hidden");
+        document
+          .getElementById("birthday-wish-screen")
+          .classList.remove("hidden");
+        document.getElementById("bg-music").play();
+      }
+
+      function showSurprise() {
+        document.getElementById("birthday-wish-screen").classList.add("hidden");
+        document.getElementById("surprise-screen").classList.remove("hidden");
+      }
+
+      function showQuestions() {
+        document.getElementById("surprise-screen").classList.add("hidden");
+        document.getElementById("questions-screen").classList.remove("hidden");
+      }
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("final-step-btn")
+          .addEventListener("click", function () {
+            // Hide the previous message screen
+            document.getElementById("message-screen").classList.add("hidden");
+
+            // Show the final love message
+            document
+              .getElementById("final-message-screen")
+              .classList.remove("hidden");
+          });
+      });
+    </script>
+  </body>
+</html>
